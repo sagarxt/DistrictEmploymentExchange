@@ -1,16 +1,13 @@
 package com.techm.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.techm.entity.enums.ApplicantStatus;
+import com.techm.entity.enums.Role;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,47 +18,79 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="applicant")
-@AttributeOverrides({ @AttributeOverride(name = "userId", column = @Column(name = "userId")),
-	@AttributeOverride(name = "name", column = @Column(name = "name")),
-	@AttributeOverride(name = "email", column = @Column(name = "email")),
-	@AttributeOverride(name = "password", column = @Column(name = "password")),
-	@AttributeOverride(name = "role", column = @Column(name = "role")),
-	@AttributeOverride(name = "isActive", column = @Column(name = "isActive")) })
-@DiscriminatorValue("applicant")
-public class Applicant extends User {
-
+public class Applicant {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long applicantId;
 	
-	@Column(nullable = false)
+	private String name;
+	
+	private String email;
+	
 	private String phone;
 	
-	@Column(nullable = false)
+	private String password;
+	
+	private String about;
+	
 	private ApplicantStatus applicantStatus;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "addressId")
+    @JoinColumn(name = "addressId", referencedColumnName = "addressId")
 	private Address address;
 	
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Qualification> qualifications;
+	private Role role;
 	
-	@Column(nullable = false)
-	private String about;
+	private boolean isActive;
+	
+    @OneToMany(cascade = CascadeType.ALL)
+	private List<Qualification> qualifications;
 	
 	public Applicant() {
 	}
 
-	public Applicant(String phone, ApplicantStatus applicantStatus, Address address, List<Qualification> qualifications,
-			String about) {
+	public Applicant(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = Role.APPLICANT;
+		this.isActive = true;
+		this.qualifications = new ArrayList<>();
+	}
+
+	public Applicant(String phone, String about, ApplicantStatus applicantStatus, Address address,
+			List<Qualification> qualifications) {
 		super();
 		this.phone = phone;
+		this.about = about;
 		this.applicantStatus = applicantStatus;
 		this.address = address;
 		this.qualifications = qualifications;
-		this.about = about;
+	}
+
+	public Long getApplicantId() {
+		return applicantId;
+	}
+
+	public void setApplicantId(Long applicantId) {
+		this.applicantId = applicantId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPhone() {
@@ -70,6 +99,22 @@ public class Applicant extends User {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
 	}
 
 	public ApplicantStatus getApplicantStatus() {
@@ -88,20 +133,28 @@ public class Applicant extends User {
 		this.address = address;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
 	public List<Qualification> getQualifications() {
 		return qualifications;
 	}
 
 	public void setQualifications(List<Qualification> qualifications) {
 		this.qualifications = qualifications;
-	}
-
-	public String getAbout() {
-		return about;
-	}
-
-	public void setAbout(String about) {
-		this.about = about;
 	}
 	
 }

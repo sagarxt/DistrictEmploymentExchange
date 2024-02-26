@@ -2,11 +2,13 @@ package com.techm.entity;
 
 import com.techm.entity.enums.ApplicationStatus;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 
 @Entity
@@ -16,23 +18,24 @@ public class Application {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long applicationId;
 	
-	@Column(nullable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "applicantId", referencedColumnName = "applicantId")
 	private Applicant applicant;
 	
-	@Column(nullable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "jobId", referencedColumnName = "jobId")
 	private Job job;
 	
-	@Column(nullable = false)
 	private ApplicationStatus applicationStatus;
 	
 	public Application() {
 	}
 
-	public Application(Applicant applicant, Job job, ApplicationStatus applicationStatus) {
+	public Application(Applicant applicant, Job job) {
 		super();
 		this.applicant = applicant;
 		this.job = job;
-		this.applicationStatus = applicationStatus;
+		this.applicationStatus = ApplicationStatus.PENDING;
 	}
 
 	public Long getApplicationId() {

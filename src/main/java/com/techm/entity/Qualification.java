@@ -3,7 +3,6 @@ package com.techm.entity;
 import com.techm.entity.enums.QualificationType;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,29 +19,22 @@ public class Qualification {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long qualificationId;
 	
-	@Column(nullable = false)
 	private QualificationType qualificationType;
 	
-	@Column(nullable = false)
 	private String collegeName;
 	
-	@Column(nullable = false)
 	private String universityName;
 	
-	@Column(nullable = false)
 	private String description;
 	
-	@Column(nullable = false)
 	private int yearOfJoining;
 	
-	@Column(nullable = false)
 	private int yearOfPassing;
 	
-	@Column(nullable = false)
 	private double percentage;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "applicantId")
+	@JoinColumn(name = "applicantId", referencedColumnName = "applicantId")
 	private Applicant applicant;
 	
 	public Qualification() {
@@ -123,4 +115,13 @@ public class Qualification {
 	public void setPercentage(double percentage) {
 		this.percentage = percentage;
 	}
+
+	public Applicant getApplicant() {
+		return applicant;
+	}
+
+	public void setApplicant(Applicant applicant) {
+		this.applicant = applicant;
+	}
+
 }

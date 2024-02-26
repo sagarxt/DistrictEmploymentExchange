@@ -1,39 +1,37 @@
 package com.techm.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "address")
 public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long addressId;
 	
-	@Column(nullable = false)
 	private String houseNo;
 	
-	@Column(nullable = false)
 	private String street;
 	
-	@Column(nullable = false)
 	private String city;
 	
-	@Column(nullable = false)
 	private String state;
 	
-	@Column(nullable = false)
 	private String country;
 	
-	@Column(nullable = false)
 	private int pincode;
 	
 	@OneToOne(mappedBy = "address")
 	private Applicant applicant;
+	
+	@OneToOne(mappedBy = "address")
+	private Employeer employeer;
 		
 	public Address() {
 	}
@@ -103,4 +101,14 @@ public class Address {
 	public void setPincode(int pincode) {
 		this.pincode = pincode;
 	}
+
+	public Applicant getApplicant() {
+		return applicant;
+	}
+
+	public void setApplicant(Applicant applicant) {
+		this.applicant = applicant;
+	}
+
+	
 }
