@@ -1,5 +1,7 @@
 package com.techm.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,8 @@ public class AdminServiceImpl implements AdminService {
 	private AdminRepository adminRepository;
 
 	@Override
-	public Admin login(String email, String password) {
-		return adminRepository.findByEmailAndPassword(email, password);
+	public Optional<Admin> login(String email, String password) {
+		return Optional.ofNullable(adminRepository.findByEmailAndPassword(email, password));
 	}
 
 	@Override

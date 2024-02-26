@@ -8,4 +8,6 @@ import com.techm.entity.Applicant;
 @Repository
 public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 
+	Applicant findByEmailAndPassword(String email, String password);
+
 }

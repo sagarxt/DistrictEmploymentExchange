@@ -8,6 +8,8 @@ import com.techm.entity.enums.Role;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,6 +42,7 @@ public class Applicant {
     @JoinColumn(name = "addressId", referencedColumnName = "addressId")
 	private Address address;
 	
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
 	private boolean isActive;
@@ -54,8 +57,6 @@ public class Applicant {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.role = Role.APPLICANT;
-		this.isActive = true;
 		this.qualifications = new ArrayList<>();
 	}
 

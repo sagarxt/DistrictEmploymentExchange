@@ -1,5 +1,8 @@
 package com.techm.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +22,33 @@ public class EmployeerServiceImpl implements EmployeerService {
 	}
 
 	@Override
-	public Employeer login(String email, String password) {
-		return employeerRepository.findByEmailAndPassword(email, password);
+	public Optional<Employeer> login(String email, String password) {
+		return Optional.ofNullable(employeerRepository.findByEmailAndPassword(email, password));
 	}
 
 	@Override
 	public Employeer update(Employeer employeer) {
 		return employeerRepository.save(employeer);
+	}
+
+	@Override
+	public Employeer delete(Long employeerId) {
+		Employeer employeer = employeerRepository.findById(employeerId).orElse(null);
+		if (employeer != null) {
+			employeer.setActive(false);
+			return employeerRepository.save(employeer);
+		}
+		return null;
+	}
+
+	@Override
+	public Optional<Employeer> findById(Long employeerId) {
+		return employeerRepository.findById(employeerId);
+		
+	}
+
+	@Override
+	public List<Employeer> findAll() {
+		return employeerRepository.findAll();
 	}
 }

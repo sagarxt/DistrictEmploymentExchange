@@ -30,7 +30,10 @@ public class AdminController {
 	
 	@GetMapping
 	public ResponseEntity<Admin> login(@RequestBody Login login){
-		Admin admin = adminService.login(login.getEmail(), login.getPassword());
+		Admin admin = adminService.login(login.getEmail(), login.getPassword()).orElse(null);
+		if(admin == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
 		return ResponseEntity.status(HttpStatus.OK).body(admin);
 		
 	}
