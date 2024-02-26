@@ -1,5 +1,6 @@
 package com.techm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techm.entity.enums.QualificationType;
 
 import jakarta.persistence.CascadeType;
@@ -33,6 +34,7 @@ public class Qualification {
 	
 	private double percentage;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "applicantId", referencedColumnName = "applicantId")
 	private Applicant applicant;

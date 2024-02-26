@@ -1,5 +1,9 @@
 package com.techm.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,6 +34,11 @@ public class Job {
 	
 	private boolean isActive;
 	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "job")
+	private List<Application> applications;
+	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "employeerId", referencedColumnName = "employeerId")
 	private Employeer employeer;
@@ -92,6 +102,14 @@ public class Job {
 
 	public void setNumberOfRequirments(int numberOfRequirments) {
 		this.numberOfRequirments = numberOfRequirments;
+	}
+	
+	public Employeer getEmployeer() {
+		return employeer;
+	}
+
+	public void setEmployeer(Employeer employeer) {
+		this.employeer = employeer;
 	}
 
 	public boolean isActive() {

@@ -11,6 +11,8 @@ import com.techm.entity.Job;
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
 
-	List<Job> findJobsByEmployeer(Employeer employeer);
+	List<Job> findByEmployeer(Employeer employeer);
+	
+	List<Job> findByIsActive(boolean active);
 
 }

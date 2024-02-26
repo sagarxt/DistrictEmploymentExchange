@@ -3,6 +3,7 @@ package com.techm.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techm.entity.enums.ApplicantStatus;
 import com.techm.entity.enums.Role;
 
@@ -49,6 +50,10 @@ public class Applicant {
 	
     @OneToMany(cascade = CascadeType.ALL)
 	private List<Qualification> qualifications;
+    
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
+    private List<Application> applications;
 	
 	public Applicant() {
 	}

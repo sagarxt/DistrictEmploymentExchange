@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techm.entity.Applicant;
+import com.techm.entity.Application;
+import com.techm.entity.Job;
 import com.techm.entity.Login;
 import com.techm.service.ApplicantService;
 
@@ -51,9 +53,9 @@ public class ApplicantController {
 		return ResponseEntity.status(HttpStatus.OK).body(applicants);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Applicant> getApplicantById(@PathVariable Long id){
-		Applicant applicant = applicantService.getApplicantById(id).orElse(null);
+	@GetMapping("/{applicantId}")
+	public ResponseEntity<Applicant> getApplicantById(@PathVariable Long applicantId){
+		Applicant applicant = applicantService.getApplicantById(applicantId).orElse(null);
 		if(applicant == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
@@ -67,6 +69,28 @@ public class ApplicantController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(deletedApplicant);
+	}
+	
+	@GetMapping("/alljobs")
+	public ResponseEntity<List<Job>> getAllActiveJobs(){
+		List<Job> jobs = applicantService.getAllActiveJobs();
+		return ResponseEntity.status(HttpStatus.OK).body(jobs);
+	}
+	
+	@PostMapping("/apply/{applicantId}/{jobId}")
+	public ResponseEntity<Application> apply(@PathVariable Long applicantId, @PathVariable Long jobId){
+		Application applied = applicantService.apply(applicantId, jobId);
+		return ResponseEntity.status(HttpStatus.CREATED).body(applied);
+		
+	}
+	
+	@GetMapping("/applied/{applicantId}")
+	public ResponseEntity<List<Job>> getAppliedJobs(@PathVariable Long applicantId){
+		List<Job> jobs = applicantService.getAppliedJobs(applicantId);
+		if(jobs == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(jobs);
 	}
 	
 }

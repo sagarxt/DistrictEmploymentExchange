@@ -22,4 +22,5 @@ public interface ApplicationService {
 	List<Application> findByEmployeerId(Long employeerId);
 	
 	List<Application> findByJob(Job job);
+	
 }

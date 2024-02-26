@@ -1,9 +1,13 @@
 package com.techm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techm.entity.enums.ApplicationStatus;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,14 +22,17 @@ public class Application {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long applicationId;
 	
+	//@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "applicantId", referencedColumnName = "applicantId")
+	//@JoinColumn(name = "applicantId", referencedColumnName = "applicantId",unique = false)
 	private Applicant applicant;
 	
+	//@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "jobId", referencedColumnName = "jobId")
+	//@JoinColumn(name = "jobId", referencedColumnName = "jobId",unique = false)
 	private Job job;
 	
+	@Enumerated(EnumType.STRING)
 	private ApplicationStatus applicationStatus;
 	
 	public Application() {

@@ -1,5 +1,7 @@
 package com.techm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,9 +31,11 @@ public class Address {
 	
 	private int pincode;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "address")
 	private Applicant applicant;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "address")
 	private Employeer employeer;
 		

@@ -23,6 +23,7 @@ public class JobServiceImpl implements JobService {
 	
 	@Override
 	public Job postJob(Job job) {
+		job.setActive(true);
 		return jobRepository.save(job);
 	}
 
@@ -55,7 +56,7 @@ public class JobServiceImpl implements JobService {
 	public List<Job> getJobsByEmployeerId(Long employeerId) {
 		Employeer employeer = employeerService.findById(employeerId).orElse(null);
 		if (employeer != null) {
-			return jobRepository.findJobsByEmployeer(employeer);
+			return jobRepository.findByEmployeer(employeer);
 		}
 		return null;
 	}
