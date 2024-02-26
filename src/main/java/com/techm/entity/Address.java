@@ -21,6 +21,8 @@ public class Address {
 	
 	private String city;
 	
+	private String district;
+
 	private String state;
 	
 	private String country;
@@ -36,11 +38,12 @@ public class Address {
 	public Address() {
 	}
 
-	public Address(String houseNo, String street, String city, String state, String country, int pincode) {
+	public Address(String houseNo, String street, String city, String district, String state, String country, int pincode) {
 		super();
 		this.houseNo = houseNo;
 		this.street = street;
 		this.city = city;
+		this.district = district;
 		this.state = state;
 		this.country = country;
 		this.pincode = pincode;
@@ -109,6 +112,21 @@ public class Address {
 	public void setApplicant(Applicant applicant) {
 		this.applicant = applicant;
 	}
-
+	
+	public String getDistrict() {
+		return district;
+	}
+	
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	
+	public Employeer getEmployeer() {
+		return employeer;
+	}
+	
+	public void setEmployeer(Employeer employeer) {
+		this.employeer = employeer;
+	}
 	
 }

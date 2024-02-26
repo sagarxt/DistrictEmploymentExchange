@@ -59,16 +59,6 @@ public class Applicant {
 		this.qualifications = new ArrayList<>();
 	}
 
-	public Applicant(String phone, String about, ApplicantStatus applicantStatus, Address address,
-			List<Qualification> qualifications) {
-		super();
-		this.phone = phone;
-		this.about = about;
-		this.applicantStatus = applicantStatus;
-		this.address = address;
-		this.qualifications = qualifications;
-	}
-
 	public Long getApplicantId() {
 		return applicantId;
 	}
