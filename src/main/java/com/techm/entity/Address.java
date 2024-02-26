@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Address {
@@ -31,6 +32,9 @@ public class Address {
 	@Column(nullable = false)
 	private int pincode;
 	
+	@OneToOne(mappedBy = "address")
+	private Applicant applicant;
+		
 	public Address() {
 	}
 

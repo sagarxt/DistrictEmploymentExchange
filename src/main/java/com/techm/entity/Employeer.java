@@ -3,11 +3,30 @@ package com.techm.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "employeer")
+@AttributeOverrides({ @AttributeOverride(name = "userId", column = @Column(name = "userId")),
+	@AttributeOverride(name = "name", column = @Column(name = "name")),
+	@AttributeOverride(name = "email", column = @Column(name = "email")),
+	@AttributeOverride(name = "password", column = @Column(name = "password")),
+	@AttributeOverride(name = "role", column = @Column(name = "role")),
+	@AttributeOverride(name = "isActive", column = @Column(name = "isActive")) })
+@DiscriminatorValue("employeer")
 public class Employeer extends User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long employeerId;
 	
 	@Column(nullable = false)
 	private String companyName;
